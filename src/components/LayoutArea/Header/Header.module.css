@@ -1,0 +1,10 @@
+.header {
+	text-align: center;
+    margin-top: 50px !important;
+}
+
+.color {
+    font-size: 5rem;
+    color: #DBEDF3;
+    text-shadow: 3px 0 #DA0463;
+}
