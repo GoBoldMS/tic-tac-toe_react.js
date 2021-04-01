@@ -2,7 +2,7 @@ export class GlobalState {
     constructor(
 public isClickable: boolean = true,
 public isWinner: boolean = false,
-public userClick: number = 0,
+public userClick: number = 1,
 public userWin: number = 0 ,
 public computerWin: number = 0,
 public tieGames: number = 0,
@@ -23,6 +23,7 @@ export enum GameActionType {
     isClickable = "isClickable",
     isWinner = "isWinner" ,
     userClick = "userClick" ,
+    userClickReset = "userClickReset",
     userWin = "userWin",
     computerWin = "computerWin",
     tieGames = "tieGames",
@@ -43,6 +44,9 @@ export function isWinner(gameStateWinner:GlobalState):GameAction {
 }
 export function userClick(userClick:number):GameAction {
     return { type:GameActionType.userClick,payload:userClick}
+}
+export function userClickReset(userClickReset:number):GameAction {
+    return {type:GameActionType.userClickReset,payload:userClickReset}
 }
 export function userWin(userWin:number):GameAction {
     return { type:GameActionType.userWin,payload:userWin}
@@ -72,6 +76,9 @@ export function gameStateReducer(currentState = new GlobalState(),action: GameAc
         break;
         case GameActionType.userClick:
         newState.userClick += 1
+        break;
+        case GameActionType.userClickReset:
+        newState.userClick = 0
         break;
         case GameActionType.tieGames:
         newState.tieGames += 1

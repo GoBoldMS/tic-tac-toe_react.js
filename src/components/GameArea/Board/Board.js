@@ -7,15 +7,14 @@ class Board extends React.Component{
 constructor(props){
     super(props)
     this.state = {
-    isClickable: true,
-    isWinner: false ,
-    userClick: 0 ,
-    userWin: 0,
-    computerWin: 0,
-    tieGames: 0,
-    isPlayed: false
+    isClickable: store.getState().isClickable,
+    isWinner:  store.getState().isWinner ,
+    userClick:  store.getState().userClick ,
+    userWin: store.getState().userWin,
+    computerWin: store.getState().computerWin,
+    tieGames: store.getState().tieGames,
+    isPlayed: store.getState().isPlayed
     };
-
 }
 
 componentDidMount(){
@@ -31,7 +30,6 @@ store.subscribe( ()=>{
   })  
 })
 }
-
 
 handelClickAsync = async (index) =>{
 
@@ -53,82 +51,77 @@ this.refs["block"+index].classList.add("x")
 //     })
 store.dispatch({type: "isClickable",payload:false});
 store.dispatch({type: "userClick"});
-store.dispatch({type: "isPlayed",payload:true});
-
-console.log(this.state.userClick)
-
+store.dispatch({type: "isPlayed",payload:false});
 await this.checkWinner();
 if(!this.state.isWinner){
 this.computerTurn(index)
-}
- 
-}
+}}
 
 computerTurn(){
 setTimeout( ()=>{
 
 let nextMove = []
 const winBlockCombination = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
-
+debugger
 if(!this.state.isPlayed){
     for(let data of winBlockCombination) {
         const val1 = this.refs["block"+data[0]].classList[0];
         const val2 = this.refs["block"+data[1]].classList[0];
         const val3 = this.refs["block"+data[2]].classList[0];
-    if(val1 === "o" && val2 === "o" || val1 === "o" && val3 === "o" || val3 === "o" && val2 === "o" ){
-        if(val1 === undefined){
-            this.refs["block"+data[0]].className = "o";
-            this.refs["block"+data[0]].classList.add("o")
-            this.checkWinner()
-            this.setState({isPlayed:true})
-            break
-            }
-            if(val2 === undefined){
-            this.refs["block"+data[1]].className = "o";
-            this.refs["block"+data[1]].classList.add("o")  
-            this.checkWinner()
-            this.setState({isPlayed:true})
-            break   
-            }
-            if(val3 === undefined){
-            this.refs["block"+data[2]].className = "o";
-            this.refs["block"+data[2]].classList.add("o")  
-            this.checkWinner()
-            this.setState({isPlayed:true})
-            break   
-            }}   
-        }}
+if(val1 === "o" && val2 === "o" || val1 === "o" && val3 === "o" || val3 === "o" && val2 === "o" ){
+if(val1 === undefined){
+    this.refs["block"+data[0]].className = "o";
+    this.refs["block"+data[0]].classList.add("o")
+    this.checkWinner()
+    store.dispatch({type:"isPlayed",payload:true})
+    break
+    }
+    if(val2 === undefined){
+    this.refs["block"+data[1]].className = "o";
+    this.refs["block"+data[1]].classList.add("o")  
+    this.checkWinner()
+    store.dispatch({type:"isPlayed",payload:true});
+    break   
+    }
+    if(val3 === undefined){
+    this.refs["block"+data[2]].className = "o";
+    this.refs["block"+data[2]].classList.add("o")  
+    this.checkWinner()
+    store.dispatch({type:"isPlayed",payload:true});
+    break   
+    }}   
+}}
 
-        if(!this.state.isPlayed){
-            for(let data of winBlockCombination) {
-            const val1 = this.refs["block"+data[0]].classList[0];
-            const val2 = this.refs["block"+data[1]].classList[0];
-            const val3 = this.refs["block"+data[2]].classList[0];
-            
-            if( val1 === "x" && val2 === "x" || val1 === "x" && val3 === "x" || val2 === "x" && val3 === "x"){
-                if(val1 === undefined){
-                this.refs["block"+data[0]].className = "o";
-                this.refs["block"+data[0]].classList.add("o")
-                this.checkWinner()
-                this.setState({isPlayed:true})
-                break
-                }
-                if(val2 === undefined){
-                this.refs["block"+data[1]].className = "o";
-                this.refs["block"+data[1]].classList.add("o")  
-                this.checkWinner()
-                this.setState({isPlayed:true})
-                break   
-                }
-                if(val3 === undefined){
-                this.refs["block"+data[2]].className = "o";
-                this.refs["block"+data[2]].classList.add("o")  
-                this.checkWinner()
-                this.setState({isPlayed:true})
-                break   
-                }}
-                }}
-            
+if(!this.state.isPlayed){
+    for(let data of winBlockCombination) {
+    const val1 = this.refs["block"+data[0]].classList[0];
+    const val2 = this.refs["block"+data[1]].classList[0];
+    const val3 = this.refs["block"+data[2]].classList[0];
+    
+if( val1 === "x" && val2 === "x" || val1 === "x" && val3 === "x" || val2 === "x" && val3 === "x"){
+    if(val1 === undefined){
+    this.refs["block"+data[0]].className = "o";
+    this.refs["block"+data[0]].classList.add("o")
+    this.checkWinner()
+    store.dispatch({type:"isPlayed",payload:true});
+    break
+    }
+    if(val2 === undefined){
+    this.refs["block"+data[1]].className = "o";
+    this.refs["block"+data[1]].classList.add("o")  
+    this.checkWinner()
+    store.dispatch({type:"isPlayed",payload:true});
+    break   
+    }
+    if(val3 === undefined){
+    this.refs["block"+data[2]].className = "o";
+    this.refs["block"+data[2]].classList.add("o")  
+    this.checkWinner()
+    store.dispatch({type:"isPlayed",payload:true});
+    break   
+    }}
+    }}
+    
 if(!this.state.isPlayed){
 for(let i = 1 ; i<9 ; i++){
 if(this.refs["block"+i].classList[0] === undefined){
@@ -141,15 +134,9 @@ const nextStep = nextMove[Math.floor(Math.random()*nextMove.length)]
 this.refs["block"+nextStep].className = "o";
 this.refs["block"+nextStep].classList.add("o")
 }
-this.setState({
-    isClickable:true
-})
-
+store.dispatch({type:"isClickable",payload:true})
 },1000)
 }
-
-
-
 
 checkWinner(){
 
@@ -168,25 +155,24 @@ return
 if( val1 === val2 && val1=== val3 ){
 this.refs["block"+data[0]].className === "x" ? 
 
-this.setState({userWin: this.state.userWin +1, isClickable:false}) : 
+store.dispatch({type:"userWin"}) && 
+store.dispatch({type:"isClickable",payload:false})&&
+store.dispatch({type:"isPlayed",payload:true}): 
 
-this.setState({computerWin:this.state.computerWin+1, isClickable:false})  
-
-this.setState({isWinner: true});
+store.dispatch({type:"computerWin"}) &&
+store.dispatch({type:"isClickable",payload:false}) &&
+store.dispatch({type:"isWinner",payload:true}) &&
+store.dispatch({type:"isPlayed",payload:true})
 
 this.resetGame();
-
 return}
 } )
-
 if(this.state.userClick > 4){
-
-this.setState({tieGames: this.state.tieGames + 1,isClickable:false});
-
-this.setState({isWinner: true});
-
+store.dispatch({type:"tieGames"})
+store.dispatch({type:"isClickable",payload:false})
+store.dispatch({type:"isWinner",payload:true})
+store.dispatch({type:"isPlayed",payload:true})
 this.resetGame();
-
 return 
 }
 }
@@ -197,11 +183,14 @@ setTimeout(()=>{
     for(let i = 1 ; i <=9 ; i ++){
         this.refs["block"+[i]].classList = ""
 }
-this.setState({
-    isWinner: false ,
-    isClickable:true,
-    userClick: 0
-})
+store.dispatch({type:"isWinner",payload:false})
+store.dispatch({type:"isClickable",payload:true})
+store.dispatch({type:"userClickReset"})
+// this.setState({
+//     isWinner: false ,
+//     isClickable:true,
+//     userClick: 0
+// })
 },1000)
 }
 
