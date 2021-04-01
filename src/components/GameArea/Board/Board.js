@@ -1,4 +1,5 @@
 import React from 'react';
+import store from '../../../Redux/Store';
 import "./Board.css"
 
 class Board extends React.Component{
@@ -17,10 +18,25 @@ constructor(props){
 
 }
 
+componentDidMount(){
+store.subscribe( ()=>{
+  this.setState({
+    isClickable: store.getState().isClickable,
+    isWinner: store.getState().isWinner ,
+    userClick: store.getState().userClick ,
+    userWin: store.getState().userWin,
+    computerWin: store.getState().computerWin,
+    tieGames: store.getState().tieGames,
+    isPlayed: store.getState().isPlayed
+  })  
+})
+}
+
+
 handelClickAsync = async (index) =>{
 
 if(!this.state.isClickable){
-    return
+return
 }
 if(this.refs["block"+index].classList.length > 0){
 return
@@ -30,10 +46,17 @@ return
 }
 this.refs["block"+index].className = "x";
 this.refs["block"+index].classList.add("x")
-await this.setState({
-    userClick: this.state.userClick + 1,
-    isPlayed: false
-    })
+// await this.setState({
+//     isClickable:false,
+//     userClick: this.state.userClick + 1,
+//     isPlayed: false
+//     })
+store.dispatch({type: "isClickable",payload:false});
+store.dispatch({type: "userClick"});
+store.dispatch({type: "isPlayed",payload:true});
+
+console.log(this.state.userClick)
+
 await this.checkWinner();
 if(!this.state.isWinner){
 this.computerTurn(index)
@@ -106,9 +129,6 @@ if(!this.state.isPlayed){
                 }}
                 }}
             
-
-
-
 if(!this.state.isPlayed){
 for(let i = 1 ; i<9 ; i++){
 if(this.refs["block"+i].classList[0] === undefined){
@@ -121,6 +141,10 @@ const nextStep = nextMove[Math.floor(Math.random()*nextMove.length)]
 this.refs["block"+nextStep].className = "o";
 this.refs["block"+nextStep].classList.add("o")
 }
+this.setState({
+    isClickable:true
+})
+
 },1000)
 }
 
