@@ -44,14 +44,11 @@ return
 }
 this.refs["block"+index].className = "x";
 this.refs["block"+index].classList.add("x")
-// await this.setState({
-//     isClickable:false,
-//     userClick: this.state.userClick + 1,
-//     isPlayed: false
-//     })
+debugger
 store.dispatch({type: "isClickable",payload:false});
-store.dispatch({type: "userClick"});
+await store.dispatch({type: "userClick"});
 store.dispatch({type: "isPlayed",payload:false});
+
 await this.checkWinner();
 if(!this.state.isWinner){
 this.computerTurn(index)
@@ -59,10 +56,10 @@ this.computerTurn(index)
 
 computerTurn(){
 setTimeout( ()=>{
-
+debugger
 let nextMove = []
 const winBlockCombination = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
-debugger
+
 if(!this.state.isPlayed){
     for(let data of winBlockCombination) {
         const val1 = this.refs["block"+data[0]].classList[0];
@@ -139,7 +136,7 @@ store.dispatch({type:"isClickable",payload:true})
 }
 
 checkWinner(){
-
+debugger
 const winCombination = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
 
 winCombination.forEach( data => {
@@ -177,7 +174,6 @@ return
 }
 }
 
-
 resetGame(){ 
 setTimeout(()=>{
     for(let i = 1 ; i <=9 ; i ++){
@@ -186,14 +182,9 @@ setTimeout(()=>{
 store.dispatch({type:"isWinner",payload:false})
 store.dispatch({type:"isClickable",payload:true})
 store.dispatch({type:"userClickReset"})
-// this.setState({
-//     isWinner: false ,
-//     isClickable:true,
-//     userClick: 0
-// })
+
 },1000)
 }
-
 
 render() {
 return (
@@ -211,33 +202,9 @@ return (
         <div onClick={() => this.handelClickAsync(9)} className='grid-item'><div ref="block9"></div></div>
     </div>
 </div>
-<div className='scores'>
-               <p className='player1'>
-                  <span className='p1'>Player</span>
-                  <span className='score'> {this.state.userWin}</span>
-               </p>
-               <p className='ties'>
-                  Tie<span className='score'> {this.state.tieGames}</span>
-               </p>
-               <p className='player2'>
-                  <span className='p1'>Computer</span>
-                  <span className='score'>{this.state.computerWin}</span>
-               </p>
-</div>
 </div>
          );
     }
-
- 
-
-
-
-
-
-
-
-
-
 }
 
 export default Board;

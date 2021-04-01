@@ -1,5 +1,6 @@
 export class GlobalState {
-    constructor(
+
+constructor(
 public isClickable: boolean = true,
 public isWinner: boolean = false,
 public userClick: number = 1,
@@ -7,10 +8,7 @@ public userWin: number = 0 ,
 public computerWin: number = 0,
 public tieGames: number = 0,
 public isPlayed: boolean = false,
-    ){
-
-    }
-
+    ){}
 }
 
 export default GlobalState;

@@ -1,4 +1,5 @@
 import Board from "../../GameArea/Board/Board";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
  
  
@@ -13,6 +14,9 @@ function Layout() {
          <main>
             <Board />
          </main>
+         <footer>
+             <Footer />
+         </footer>
       </div>
    );
 }
