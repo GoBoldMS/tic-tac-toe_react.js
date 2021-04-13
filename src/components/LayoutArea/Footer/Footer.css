@@ -3,6 +3,11 @@ display: inline-block;
 text-align: center;  
 }
 
+.scoreBox > * {
+    font-size: x-large !important;
+}
+
 .scores{    
+left: 5px;
 margin: auto;
 }

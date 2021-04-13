@@ -66,7 +66,7 @@ class Board extends React.Component {
 
          this.checkWinner();
          if (!this.state.isWinner) {
-            this.computerTurn(index);
+            this.computerTurn();
          }
       } catch (err) {
          alert(err);

@@ -12,11 +12,11 @@ function heading(isWinner,gameWinner) {
 
     if(isWinner){
         if(gameWinner === "PlayerWin"){
-            return setHeadingText("You Are The Winner!") ;
+            return setHeadingText("You Won 🤩") ;
         }
         else if(gameWinner === "ComputerWin"){
 
-            return setHeadingText("You Lose :(")
+            return setHeadingText("You Lost 😥")
         }
         else{
             return setHeadingText("Tie Game");

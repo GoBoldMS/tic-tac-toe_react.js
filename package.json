@@ -1,6 +1,6 @@
 {
-  "name": "tic-tac-toe-final",
-  "version": "0.1.0",
+  "name": "tic-tac-toe",
+  "version": "2.0.2",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
