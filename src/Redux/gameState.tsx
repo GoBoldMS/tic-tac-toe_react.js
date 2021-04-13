@@ -3,11 +3,12 @@ export class GlobalState {
 constructor(
 public isClickable: boolean = true,
 public isWinner: boolean = false,
-public userClick: number = 1,
+public userClick: number = 0,
 public userWin: number = 0 ,
 public computerWin: number = 0,
 public tieGames: number = 0,
 public isPlayed: boolean = false,
+public gameWinner: string = ""
     ){}
 }
 
@@ -25,7 +26,8 @@ export enum GameActionType {
     userWin = "userWin",
     computerWin = "computerWin",
     tieGames = "tieGames",
-    isPlayed = "isPlayed"
+    isPlayed = "isPlayed",
+    gameWinner= "gameWinner"
 }
 
 export interface GameAction {
@@ -58,6 +60,9 @@ export function tieGames(tieGames:number):GameAction {
 export function isPlayed(gameStateIsPlayed:GlobalState):GameAction {
     return { type:GameActionType.isPlayed,payload:gameStateIsPlayed}
 }
+// export function gameWinner(gameStateGameWinner:GlobalState):GameAction {
+//     return { type:GameActionType.gameWinner,payload:gameStateGameWinner}
+// }
 
 
 export function gameStateReducer(currentState = new GlobalState(),action: GameAction):GlobalState {
@@ -71,18 +76,21 @@ export function gameStateReducer(currentState = new GlobalState(),action: GameAc
         break;
         case GameActionType.computerWin:
         newState.computerWin += 1
+        newState.gameWinner = "ComputerWin"
         break;
         case GameActionType.userClick:
-        newState.userClick += 1
+        newState.userClick += 1 
         break;
         case GameActionType.userClickReset:
         newState.userClick = 0
         break;
         case GameActionType.tieGames:
         newState.tieGames += 1
+        newState.gameWinner = "tieGames"
         break;
         case GameActionType.userWin:
         newState.userWin += 1
+        newState.gameWinner = "PlayerWin"
         break;
         case GameActionType.isWinner:
         newState.isWinner = action.payload

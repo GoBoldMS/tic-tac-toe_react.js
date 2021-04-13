@@ -13,7 +13,7 @@
    text-align: center;
 }
 
-.grid-item:hover {
+.grid-container:hover {
    cursor: pointer;
 }
 
@@ -40,7 +40,7 @@
    display: block;
    background-color: white;
    content: "";
-   width: 10px;
+   width: 15px;
    height: 140px;
    transform: rotate(-45deg);
 }
@@ -50,19 +50,34 @@
    display: block;
    background-color: white;
    content: "";
-   width: 10px;
+   width: 15px;
    height: 140px;
    transform: rotate(45deg);
 }
 
 *::before {
    box-sizing: inherit;
+   animation-duration: .25s;
+   animation-timing-function: cubic-bezier(0.5, 1.8, 0.1, 1.1);
+   animation-delay: 0s;
+   animation-iteration-count: 1;
+   animation-direction: normal;
+   animation-fill-mode: none;
+   animation-play-state: running;
+   animation-name: appear; 
 }
 
 *::after {
    box-sizing: inherit;
+   animation-duration: .27s;
+   animation-timing-function: cubic-bezier(0.5, 1.8, 0.1, 1.1);
+   animation-delay: 0s;
+   animation-iteration-count: 1;
+   animation-direction: normal;
+   animation-fill-mode: none;
+   animation-play-state: running;
+   animation-name: appear; 
 }
-
 
 .scores{
     position: relative;
@@ -85,16 +100,23 @@
     top: 10px;
  }
  
- .o::after {
+.o::after {
     border-radius: 100%;
     position: absolute;
     display: block;
-    border: 10px solid white;
+    border: 15px solid white;
     content: "";
     width: 120px;
     height: 120px;
     transform: rotate(45deg);
- }
+}
 
- 
+@keyframes appear{
+from{
+    opacity: 0;
+}
+to{
+    opacity: 1;
+}
+} 
  
